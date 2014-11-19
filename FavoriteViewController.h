@@ -11,6 +11,7 @@
 @interface FavoriteViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *_coffeeArray;
+    NSMutableArray *_coffeeArray2;
 }
 @property (weak, nonatomic) IBOutlet UITableView *myFTableView;
 

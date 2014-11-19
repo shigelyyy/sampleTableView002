@@ -19,38 +19,13 @@
     // Do any additional setup after loading the view.
     
     NSLog(@"%d",self.select_num);
-//    if (self.select_num == 0) {
-//        self.myLabel.text = @"ブルーマウンテン";
-//    }else if(self.select_num == 1){
-//    
-//    self.myLabel.text = @"キリマンジャロ";
-//    
-//    }else if(self.select_num == 2){
-//    self.myLabel.text = @"ブラジル";
-//    
-//    }else if(self.select_num == 3){
-//        self.myLabel.text = @"コロンビア";
-    
-//_coffeeArray = @[@"ブルーマウンテン",@"キリマンジャロ",@"ブラジル",@"コロンビア",];
-//_coffeeArray2 = @[@"サイダー",@"コーラ",@"セブンアップ",@"ファンタ",];
-    if (self.section_num == 0) {
-        self.myLabel.text = _coffeeArray[self.select_num];
-    }else{
-        self.myLabel.text = _coffeeArray2[self.select_num];
-    }
-    //self.myLabel.text = _coffeeArray[self.select_num];
-    //self.myLabel.text = [NSString stringWithFormat:@"%@とは",_coffeeArray[self.select_num]];
-    if (self.section_num == 0) {
-        self.myLabel.text =  [NSString stringWithFormat:@"%@とは",_coffeeArray[self.select_num]];
-    }else{
-            self.myLabel.text =  [NSString stringWithFormat:@"%@とは",_coffeeArray2[self.select_num]];
-    }
-    //ユーザーデフォルトからデータを取り出す箱を取り出す
+
+        //ユーザーデフォルトからデータを取り出す箱を取り出す
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSArray *coffeeTmp;
     NSArray *coffeeTmp2;
-    //保存されたデータを取り出す
+    //保存されたデータを取り出す例.defaultsの一部（coffeetable）をつかえよとのこと
     coffeeTmp = [defaults objectForKey:@"coffeeTable"];
     coffeeTmp2 = [defaults objectForKey:@"coffeeTable2"];
     //nilは何もないという状態
@@ -58,26 +33,44 @@
         coffeeTmp = @[@{@"name":@"ブルーマウンテン",@"desc":@"ジャマイカにある",@"favoriteflag":@"0"},                                                               @{@"name":@"キリマンジャロ",@"desc":@"説明キリマンジャロについて",@"favoriteflag":@"0"},
                       @{@"name":@"ブラジル",@"desc":@"説明ブラジル",@"favoriteflag":@"0"},
                       @{@"name":@"コロンビア",@"desc":@"説明コロンビアについて",@"favoriteflag":@"0"},];
-    }else{
+    }
+    
+  if (coffeeTmp2 == nil) {
         coffeeTmp2 = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0"},                                                               @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0"},
                       @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0"},
-                      @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0"},];
+                      @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0"},
+                       @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0"}];
 
     
     }
     _coffeeArray = coffeeTmp.mutableCopy;
     _coffeeArray2 = coffeeTmp2.mutableCopy;
     
-    self.descriptionText.text = _coffeeArray[self.select_num][@"desc"];
-    
+    id favoriteflag;
+    if (self.section_num == 0) {
+        //タイトルになになにとはとつける
+        self.myLabel.text =  [NSString stringWithFormat:@"%@とは",_coffeeArray[self.select_num][@"name"]];
+        //説明を表示する
+        self.descriptionText.text = _coffeeArray[self.select_num][@"desc"];
+        //favoriteflagを取り出す
+        favoriteflag = _coffeeArray[self.select_num][@"favoriteflag"];
+    }else{
+        self.myLabel.text =  [NSString stringWithFormat:@"%@とは",_coffeeArray2[self.select_num][@"name"]];
+       
+        self.descriptionText.text = _coffeeArray2[self.select_num][@"desc"];
+        
+        favoriteflag = _coffeeArray2[self.select_num][@"favoriteflag"];
+    }
+
+  
     
     //favoriteflagの取り出しを行う
-    id favoriteflag = _coffeeArray[self.select_num][@"favoriteflag"];
-    //intValueでfavoriteflagを整数型に変換する
+    
+      //intValueでfavoriteflagを整数型に変換する
     int intFavFlag = [favoriteflag intValue];
     
     if (intFavFlag == 0) {
-        
+        //ボタンの表示
         [self.favoriteBtn setTitle:@"お気に入り追加" forState:UIControlStateNormal];
     }else{
         [self.favoriteBtn setTitle:@"お気に入り解除" forState:UIControlStateNormal];
@@ -102,33 +95,57 @@
 
 - (IBAction)addFavoriteList:(id)sender {
     //まずは変更不可能なDictinaly型を作るselectedcoffee
-    NSDictionary *selectedCoffee = _coffeeArray[self.select_num];
-    //次に変更可能なNSMutableDictionaly型を作る上のselectedcoffeeを代入
-    NSMutableDictionary *changedCoffee = selectedCoffee.mutableCopy;
+    NSDictionary *selectedCoffee;
+     id favoriteflag;
+    NSMutableDictionary *changedCoffee;
+    if (self.section_num == 0) {
+        //まずはこれ
+        selectedCoffee = _coffeeArray[self.select_num];
+        //次に変更可能なNSMutableDictionaly型を作る上のselectedcoffeeを代入
+        changedCoffee = selectedCoffee.mutableCopy;
+        
+        favoriteflag = _coffeeArray[self.select_num][@"favoriteflag"];
+    }else{
+        selectedCoffee = _coffeeArray2[self.select_num];
+        //次に変更可能なNSMutableDictionaly型を作る上のselectedcoffeeを代入
+        changedCoffee = selectedCoffee.mutableCopy;
+        
+        favoriteflag = _coffeeArray2[self.select_num][@"favoriteflag"];
+    }
+    
+   
     
     //ここでfavoriteflagの取り出し
-    id favoriteflag = _coffeeArray[self.select_num][@"favoriteflag"];
+
+    
     //int型に代入
     int intFavFlag = [favoriteflag intValue];
     
     if (intFavFlag == 0) {
         [changedCoffee setObject:@1 forKey:@"favoriteflag"];
         //これからお気に入りに追加されるため、ボタン名を解除にセットしておく
-        [self.favoriteBtn setTitle:@"お気に入りに追加" forState:UIControlStateNormal];
+        [self.favoriteBtn setTitle:@"お気に入りに解除" forState:UIControlStateNormal];
     }else{
         [changedCoffee setObject:@0 forKey:@"favoriteflag"];
         //ボタンを追加にセットしておく
         [self.favoriteBtn setTitle:@"お気に入りに追加" forState:UIControlStateNormal];
-    
+     
     }
-    //下の文の意味が分からない
-    [_coffeeArray replaceObjectAtIndex:self.select_num withObject:changedCoffee];
+  
+    
 
     //userdefaultobjectを用意する
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //文字を保存
-    [defaults setObject:_coffeeArray forKey:@"coffeeTable"];//_coffeearrayをcoffeetableに保存
-    [defaults synchronize];
+    if (self.section_num == 0) {
+        [defaults setObject:_coffeeArray forKey:@"coffeeTable"];//_coffeearrayをcoffeetableに保存
+        
+        [_coffeeArray replaceObjectAtIndex:self.select_num withObject:changedCoffee];
+    }else{
+        [defaults setObject:_coffeeArray2 forKey:@"coffeeTable2"];//coffeetableとはtableviewにセットするデータ
+         [_coffeeArray2 replaceObjectAtIndex:self.select_num withObject:changedCoffee];
+    }
+        [defaults synchronize];//きちんと保存されるuserdefaultに
     
     
     
