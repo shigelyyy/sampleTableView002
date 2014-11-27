@@ -15,6 +15,11 @@
 		CE1B04E119F4DD1900F67D44 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE1B04DF19F4DD1900F67D44 /* LaunchScreen.xib */; };
 		CE1B04ED19F4DD1A00F67D44 /* SampleTableView002Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B04EC19F4DD1A00F67D44 /* SampleTableView002Tests.m */; };
 		CE1B04F819F4EC3100F67D44 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1B04F719F4EC3100F67D44 /* DetailViewController.m */; };
+		CE529F571A25AB3D009F8172 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE529F561A25AB3D009F8172 /* AVFoundation.framework */; };
+		CE529F651A25C041009F8172 /* コーラ.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CE529F611A25C041009F8172 /* コーラ.m4a */; };
+		CE529F661A25C041009F8172 /* サイダー.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CE529F621A25C041009F8172 /* サイダー.m4a */; };
+		CE529F671A25C041009F8172 /* ブラジル.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CE529F631A25C041009F8172 /* ブラジル.m4a */; };
+		CE529F681A25C041009F8172 /* ブルーマウンテン.m4a in Resources */ = {isa = PBXBuildFile; fileRef = CE529F641A25C041009F8172 /* ブルーマウンテン.m4a */; };
 		CE93B71C1A11E8ED0040A82A /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE93B71B1A11E8ED0040A82A /* MenuViewController.m */; };
 		CE93B71F1A11FE4F0040A82A /* FavoriteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE93B71E1A11FE4F0040A82A /* FavoriteViewController.m */; };
 /* End PBXBuildFile section */
@@ -45,6 +50,11 @@
 		CE1B04EC19F4DD1A00F67D44 /* SampleTableView002Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SampleTableView002Tests.m; sourceTree = "<group>"; };
 		CE1B04F619F4EC3100F67D44 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		CE1B04F719F4EC3100F67D44 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		CE529F561A25AB3D009F8172 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CE529F611A25C041009F8172 /* コーラ.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "コーラ.m4a"; sourceTree = "<group>"; };
+		CE529F621A25C041009F8172 /* サイダー.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "サイダー.m4a"; sourceTree = "<group>"; };
+		CE529F631A25C041009F8172 /* ブラジル.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ブラジル.m4a"; sourceTree = "<group>"; };
+		CE529F641A25C041009F8172 /* ブルーマウンテン.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ブルーマウンテン.m4a"; sourceTree = "<group>"; };
 		CE93B71A1A11E8ED0040A82A /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MenuViewController.h; path = ../MenuViewController.h; sourceTree = "<group>"; };
 		CE93B71B1A11E8ED0040A82A /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MenuViewController.m; path = ../MenuViewController.m; sourceTree = "<group>"; };
 		CE93B71D1A11FE4F0040A82A /* FavoriteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavoriteViewController.h; path = ../FavoriteViewController.h; sourceTree = "<group>"; };
@@ -56,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE529F571A25AB3D009F8172 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +83,7 @@
 		CE1B04C419F4DD1900F67D44 = {
 			isa = PBXGroup;
 			children = (
+				CE529F561A25AB3D009F8172 /* AVFoundation.framework */,
 				CE1B04CF19F4DD1900F67D44 /* SampleTableView002 */,
 				CE1B04E919F4DD1A00F67D44 /* SampleTableView002Tests */,
 				CE1B04CE19F4DD1900F67D44 /* Products */,
@@ -111,6 +123,7 @@
 		CE1B04D019F4DD1900F67D44 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE529F601A25C041009F8172 /* sounds */,
 				CE1B04D119F4DD1900F67D44 /* Info.plist */,
 				CE1B04D219F4DD1900F67D44 /* main.m */,
 			);
@@ -132,6 +145,17 @@
 				CE1B04EB19F4DD1A00F67D44 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CE529F601A25C041009F8172 /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				CE529F611A25C041009F8172 /* コーラ.m4a */,
+				CE529F621A25C041009F8172 /* サイダー.m4a */,
+				CE529F631A25C041009F8172 /* ブラジル.m4a */,
+				CE529F641A25C041009F8172 /* ブルーマウンテン.m4a */,
+			);
+			path = sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,9 +238,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE529F661A25C041009F8172 /* サイダー.m4a in Resources */,
 				CE1B04DC19F4DD1900F67D44 /* Main.storyboard in Resources */,
 				CE1B04E119F4DD1900F67D44 /* LaunchScreen.xib in Resources */,
+				CE529F681A25C041009F8172 /* ブルーマウンテン.m4a in Resources */,
 				CE1B04DE19F4DD1900F67D44 /* Images.xcassets in Resources */,
+				CE529F671A25C041009F8172 /* ブラジル.m4a in Resources */,
+				CE529F651A25C041009F8172 /* コーラ.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +390,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SampleTableView002/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -372,6 +401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SampleTableView002/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

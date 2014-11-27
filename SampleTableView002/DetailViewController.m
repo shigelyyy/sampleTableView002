@@ -17,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSError *error = nil;
+    
     
     NSLog(@"%d",self.select_num);
 
@@ -30,23 +32,24 @@
     coffeeTmp2 = [defaults objectForKey:@"coffeeTable2"];
     //nilは何もないという状態
     if (coffeeTmp == nil) {
-        coffeeTmp = @[@{@"name":@"ブルーマウンテン",@"desc":@"ジャマイカにある",@"favoriteflag":@"0"},                                                               @{@"name":@"キリマンジャロ",@"desc":@"説明キリマンジャロについて",@"favoriteflag":@"0"},
-                      @{@"name":@"ブラジル",@"desc":@"説明ブラジル",@"favoriteflag":@"0"},
-                      @{@"name":@"コロンビア",@"desc":@"説明コロンビアについて",@"favoriteflag":@"0"},];
+        coffeeTmp = @[@{@"name":@"ブルーマウンテン",@"desc":@"ジャマイカにある",@"favoriteflag":@"0",@"sounddate":@"ブルーマウンテン"},                                                               @{@"name":@"キリマンジャロ",@"desc":@"説明キリマンジャロについ て",@"favoriteflag":@"0",@"sounddate":@"ブラジル"},
+                      @{@"name":@"ブラジル",@"desc":@"説明ブラジル",@"favoriteflag":@"0",@"sounddate":@""},
+                      @{@"name":@"コロンビア",@"desc":@"説明コロンビアについて",@"favoriteflag":@"0",@"sounddate":@""},];
     }
-    
+    //サウンドを足す
   if (coffeeTmp2 == nil) {
-        coffeeTmp2 = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0"},                                                               @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0"},
-                      @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0"},
-                      @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0"},
-                       @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0"}];
+    coffeeTmp2 = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0",@"sounddate":@"サイダー"},
+                       @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0",@"sounddate":@"コーラ"},
+                      @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0",@"sounddate":@""},
+                      @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0",@"sounddate":@""},
+                       @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0",@"sounddate":@""}];
 
     
     }
     _coffeeArray = coffeeTmp.mutableCopy;
     _coffeeArray2 = coffeeTmp2.mutableCopy;
-    
-    id favoriteflag;
+    NSString *path;
+    id favoriteflag;//ここにサウンドをたす
     if (self.section_num == 0) {
         //タイトルになになにとはとつける
         self.myLabel.text =  [NSString stringWithFormat:@"%@とは",_coffeeArray[self.select_num][@"name"]];
@@ -54,12 +57,16 @@
         self.descriptionText.text = _coffeeArray[self.select_num][@"desc"];
         //favoriteflagを取り出す
         favoriteflag = _coffeeArray[self.select_num][@"favoriteflag"];
+        //audioを再生するプレイヤーを作成する
+        path = [[NSBundle mainBundle] pathForResource:_coffeeArray[self.select_num][@"sounddate"] ofType:@"m4a"];
     }else{
         self.myLabel.text =  [NSString stringWithFormat:@"%@とは",_coffeeArray2[self.select_num][@"name"]];
        
         self.descriptionText.text = _coffeeArray2[self.select_num][@"desc"];
         
         favoriteflag = _coffeeArray2[self.select_num][@"favoriteflag"];
+        
+         path = [[NSBundle mainBundle] pathForResource:_coffeeArray2[self.select_num][@"sounddate"] ofType:@"m4a"];
     }
 
   
@@ -75,6 +82,17 @@
     }else{
         [self.favoriteBtn setTitle:@"お気に入り解除" forState:UIControlStateNormal];
     }
+    
+    //パスから再生するプレイヤーを作成する
+    NSURL *url =[[NSURL alloc] initFileURLWithPath:path];
+    //audioを再生するプレイヤーを作成する
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    //エラーが起きたとき
+    if (error != nil) {
+        NSLog(@"Error %@",[error localizedDescription]);
+    }
+    //自分自身をデリケートに設定
+    [self.audioPlayer setDelegate:self];
    
 }
 
@@ -138,16 +156,27 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     //文字を保存
     if (self.section_num == 0) {
-        [defaults setObject:_coffeeArray forKey:@"coffeeTable"];//_coffeearrayをcoffeetableに保存
-        
+        //順番は変えないでね
         [_coffeeArray replaceObjectAtIndex:self.select_num withObject:changedCoffee];
+        [defaults setObject:_coffeeArray forKey:@"coffeeTable"];//_coffeearrayをcoffeetableに保存
+       
     }else{
-        [defaults setObject:_coffeeArray2 forKey:@"coffeeTable2"];//coffeetableとはtableviewにセットするデータ
          [_coffeeArray2 replaceObjectAtIndex:self.select_num withObject:changedCoffee];
-    }
+        [defaults setObject:_coffeeArray2 forKey:@"coffeeTable2"];//coffeetableとはtableviewにセットするデータ
+        }
         [defaults synchronize];//きちんと保存されるuserdefaultに
     
     
     
+}
+- (IBAction)playAudio:(id)sender {
+    //ボタンが押されると再生、停止の記述を追加
+    if (self.audioPlayer.playing) {
+        [self.audioPlayer stop];
+        [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
+    }else{
+        [self.audioPlayer play];
+        [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
+}
 }
 @end

@@ -29,15 +29,17 @@
     if (coffeeTmp == nil) {
         coffeeTmp = @[@{@"name":@"ブルーマウンテン",
                         @"desc":@"ジャマイカにあるブルーマウンテン山脈の標高800～1200mの限られた地域で栽培されるコーヒー豆のブランド。\nブルーマウンテンの特徴として、香りが非常に高く、繊細な味であることが挙げられる。香りが高いため、他の香りが弱い豆とブレンドすることが多い。",
-                        @"favoriteflag":@"0"},
-                      @{@"name":@"キリマンジャロ",@"desc":@"説明キリ",@"favoriteflag":@"0"},
-                      @{@"name":@"ブラジル",@"desc":@"説明ブラジル",@"favoriteflag":@"0"},
-                      @{@"name":@"コロンビア",@"desc":@"説明コロンビア",@"favoriteflag":@"0"}];
+                        @"favoriteflag":@"0",@"sounddate":@"ブルーマウンテン"},
+                      @{@"name":@"キリマンジャロ",@"desc":@"説明キリ",@"favoriteflag":@"0",@"sounddate":@"ブラジル"},
+                      @{@"name":@"ブラジル",@"desc":@"説明ブラジル",@"favoriteflag":@"0",@"sounddate":@""},
+                      @{@"name":@"コロンビア",@"desc":@"説明コロンビア",@"favoriteflag":@"0",@"sounddate":@""}];
                     }
     if (coffeeTmp2 == nil) {
-        coffeeTmp2 = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0"},                                                               @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0"},
-                       @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0"},
-                       @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0"}, @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0"}];
+        coffeeTmp2 = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0",@"sounddate":@"サイダー"},
+                    @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0",@"sounddate":@"コーラ"},
+            @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0",@"sounddate":@""},
+            @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0",@"sounddate":@""},
+            @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0",@"sounddate":@""}];
     }
     
     //検索用編集可能配列
@@ -124,20 +126,22 @@
     //UserDefaultからデータを取り出す
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *coffeeTmp;
-    //保存されたデータを取り出す
+   //戻す時の番号を指定する
+    int index = 0;
+     //保存されたデータを取り出す
     if (indexPath.section == 0) {
         coffeeTmp = [defaults objectForKey:@"coffeeTable"];
         
         if (coffeeTmp == nil) {
             //一度も保存されていない場合はデフォルトリストを代入する
             //配列を使った場合
-            coffeeTmp =  @[@{@"name":@"ブルーマウンテン",
-                             @"desc":@"ジャマイカにあるブルーマウンテン山脈の標高800～1200mの限られた地域で栽培されるコーヒー豆のブランド。\nブルーマウンテンの特徴として、香りが非常に高く、繊細な味であることが挙げられる。香りが高いため、他の香りが弱い豆とブレンドすることが多い。",
-                             @"favoriteflag":@"0"},
-                           @{@"name":@"キリマンジャロ",@"desc":@"説明キリ",@"favoriteflag":@"0"},
-                           @{@"name":@"ブラジル",@"desc":@"説明ブラジル",@"favoriteflag":@"0"},
-                           @{@"name":@"コロンビア",@"desc":@"説明コロンビア",@"favoriteflag":@"0"}];
-        } int index = 0;//戻す時の番号を探している
+     coffeeTmp =  @[@{@"name":@"ブルーマウンテン",
+                    @"desc":@"ジャマイカにあるブルーマウンテン山脈の標高800～1200mの限られた地域で栽培されるコーヒー豆のブランド。\nブルーマウンテンの特徴として、香りが非常に高く、繊細な味であることが挙げられる。香りが高いため、他の香りが弱い豆とブレンドすることが多い。",
+                             @"favoriteflag":@"0",@"sounddate":@"ブルーマウンテン"},
+                    @{@"name":@"キリマンジャロ",@"desc":@"説明キリ",@"favoriteflag":@"0",@"sounddate":@"ブラジル"},
+                    @{@"name":@"ブラジル",@"desc":@"説明ブラジル",@"favoriteflag":@"0",@"sounddate":@""},
+                    @{@"name":@"コロンビア",@"desc":@"説明コロンビア",@"favoriteflag":@"0",@"sounddate":@""}];
+        } //int index = 0;
         for (NSDictionary *coffeeArray_each in coffeeTmp) {
             NSString *name = coffeeArray_each[@"name"];
             //名前が同じ者が存在した場合、検索処理を中止する
@@ -154,12 +158,14 @@
         if (coffeeTmp == nil) {
             //一度も保存されていない場合はデフォルトリストを代入する
             //配列を使った場合
-            coffeeTmp = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0"},                                                               @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0"},
-                           @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0"},
+            coffeeTmp = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0",@"sounddate":@"サイダー"},
+                          @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0",@"sounddate":@"コーラ"},
+                           @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0",@"sounddate":@""},
                           
-                          @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0"}, @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0"}];
+                          @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0",@"sounddate":@""},
+                          @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0",@"sounddate":@""}];
         }
-        int index = 0;
+        //int index = 0;
         for (NSDictionary *coffeeArray_each in coffeeTmp) {
             NSString *name = coffeeArray_each[@"name"];
             //名前が同じ者が存在した場合、検索処理を中止する
@@ -171,6 +177,8 @@
 
             
     }
+    //セクション数の遷移先の画面移す
+    dvc.section_num = indexPath.section;
     //検索処理結果の番号を遷移先の画面に渡す
     dvc.select_num = index;
     //ナビゲーションコントローラーの機能で画面遷移

@@ -7,16 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface DetailViewController : UIViewController
+//AVFoundationを作成
+#import <AVFoundation/AVFoundation.h>
+@interface DetailViewController : UIViewController<AVAudioPlayerDelegate>//delegateを追加
 {
     NSMutableArray *_coffeeArray;//メンバ変数宣言
     NSMutableArray *_coffeeArray2;
     
 }
 
-
-@property (weak, nonatomic) IBOutlet UILabel *coffeeTitle;
+@property(nonatomic) AVAudioPlayer *audioPlayer;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+- (IBAction)playAudio:(id)sender;
 
 @property (nonatomic,assign) int select_num;//このコントローラーに遷移してくるもとの画面からもらった情報を保存する変数
 @property (nonatomic,assign) int section_num;
