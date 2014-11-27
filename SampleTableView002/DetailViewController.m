@@ -171,12 +171,13 @@
 }
 - (IBAction)playAudio:(id)sender {
     //ボタンが押されると再生、停止の記述を追加
+   
     if (self.audioPlayer.playing) {
         [self.audioPlayer stop];
-        [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
+        //[self.playButton setTitle:@"Play" forState:UIControlStateNormal];
     }else{
         [self.audioPlayer play];
-        [self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
+        //[self.playButton setTitle:@"Stop" forState:UIControlStateNormal];
 }
 }
 @end
