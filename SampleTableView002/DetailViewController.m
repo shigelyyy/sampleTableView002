@@ -26,10 +26,10 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSArray *coffeeTmp;
-    NSArray *coffeeTmp2;
+    //NSArray *coffeeTmp2;
     //保存されたデータを取り出す例.defaultsの一部（coffeetable）をつかえよとのこと
     coffeeTmp = [defaults objectForKey:@"coffeeTable"];
-    coffeeTmp2 = [defaults objectForKey:@"coffeeTable2"];
+    //coffeeTmp2 = [defaults objectForKey:@"coffeeTable2"];
     //nilは何もないという状態
     if (coffeeTmp == nil) {
         coffeeTmp = @[@{@"name":@"ブルーマウンテン",@"desc":@"ジャマイカにある",@"favoriteflag":@"0",@"sounddate":@"ブルーマウンテン"},                                                               @{@"name":@"キリマンジャロ",@"desc":@"説明キリマンジャロについ て",@"favoriteflag":@"0",@"sounddate":@"ブラジル"},
@@ -37,17 +37,17 @@
                       @{@"name":@"コロンビア",@"desc":@"説明コロンビアについて",@"favoriteflag":@"0",@"sounddate":@""},];
     }
     //サウンドを足す
-  if (coffeeTmp2 == nil) {
-    coffeeTmp2 = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0",@"sounddate":@"サイダー"},
-                       @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0",@"sounddate":@"コーラ"},
-                      @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0",@"sounddate":@""},
-                      @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0",@"sounddate":@""},
-                       @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0",@"sounddate":@""}];
-
-    
-    }
+//  //if (coffeeTmp2 == nil) {
+//    coffeeTmp2 = @[@{@"name":@"サイダー",@"desc":@"シュワシュワ",@"favoriteflag":@"0",@"sounddate":@"サイダー"},
+//                       @{@"name":@"コーラ",@"desc":@"めちゃ売れてる",@"favoriteflag":@"0",@"sounddate":@"コーラ"},
+//                      @{@"name":@"セブンアップ",@"desc":@"たまに飲むとグット",@"favoriteflag":@"0",@"sounddate":@""},
+//                      @{@"name":@"ファンタ",@"desc":@"いろんな味があってグット",@"favoriteflag":@"0",@"sounddate":@""},
+//                       @{@"name":@"アップルジュース",@"desc":@"甘い",@"favoriteflag":@"0",@"sounddate":@""}];
+//
+//    
+//    //}
     _coffeeArray = coffeeTmp.mutableCopy;
-    _coffeeArray2 = coffeeTmp2.mutableCopy;
+    //_coffeeArray2 = coffeeTmp2.mutableCopy;
     NSString *path;
     id favoriteflag;//ここにサウンドをたす
     if (self.section_num == 0) {
@@ -58,17 +58,17 @@
         //favoriteflagを取り出す
         favoriteflag = _coffeeArray[self.select_num][@"favoriteflag"];
         //audioを再生するプレイヤーを作成する
-        path = [[NSBundle mainBundle] pathForResource:_coffeeArray[self.select_num][@"sounddate"] ofType:@"m4a"];
-    }else{
-        self.myLabel.text =  [NSString stringWithFormat:@"%@とは",_coffeeArray2[self.select_num][@"name"]];
-       
-        self.descriptionText.text = _coffeeArray2[self.select_num][@"desc"];
-        
-        favoriteflag = _coffeeArray2[self.select_num][@"favoriteflag"];
-        
-         path = [[NSBundle mainBundle] pathForResource:_coffeeArray2[self.select_num][@"sounddate"] ofType:@"m4a"];
-    }
-
+        path = [[NSBundle mainBundle] pathForResource:_coffeeArray[self.select_num][@"sounddate"] ofType:@"m4a"];}
+//    }else{
+//        self.myLabel.text =  [NSString stringWithFormat:@"%@とは",_coffeeArray2[self.select_num][@"name"]];
+//       
+//        self.descriptionText.text = _coffeeArray2[self.select_num][@"desc"];
+//        
+//        favoriteflag = _coffeeArray2[self.select_num][@"favoriteflag"];
+//        
+//         path = [[NSBundle mainBundle] pathForResource:_coffeeArray2[self.select_num][@"sounddate"] ofType:@"m4a"];
+//    }
+//
   
     
     //favoriteflagの取り出しを行う
@@ -160,10 +160,10 @@
         [_coffeeArray replaceObjectAtIndex:self.select_num withObject:changedCoffee];
         [defaults setObject:_coffeeArray forKey:@"coffeeTable"];//_coffeearrayをcoffeetableに保存
        
-    }else{
-         [_coffeeArray2 replaceObjectAtIndex:self.select_num withObject:changedCoffee];
-        [defaults setObject:_coffeeArray2 forKey:@"coffeeTable2"];//coffeetableとはtableviewにセットするデータ
-        }
+//    }else{
+//         [_coffeeArray2 replaceObjectAtIndex:self.select_num withObject:changedCoffee];
+//        [defaults setObject:_coffeeArray2 forKey:@"coffeeTable2"];//coffeetableとはtableviewにセットするデータ
+//        }
         [defaults synchronize];//きちんと保存されるuserdefaultに
     
     
